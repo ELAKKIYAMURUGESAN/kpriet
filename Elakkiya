@@ -1,0 +1,25 @@
+def get(s, alphabet="abcd"):
+    seen = {}
+    for c in alphabet:
+        seen[c] = 0
+    seen[s[0]] = 1
+    start = 0
+    end = 0
+    shortest_s = 0
+    shortest_e = 99999
+    while end + 1 < len(s):
+        while seen[s[start]] > 1:
+            seen[s[start]] -= 1
+            start += 1
+        
+        if sum(seen.values()) == len(alphabet) and all(v == 1 for v in seen.values()) and \
+                shortest_e - shortest_s > end - start:
+            shortest_s = start
+            shortest_e = end
+        end += 1
+        seen[s[end]] += 1
+    return s[shortest_s: shortest_e + 1]
+
+
+print(get("abcda")) 
+print(4)
